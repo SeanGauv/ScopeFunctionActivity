@@ -20,6 +20,12 @@ class MainActivity : AppCompatActivity() {
         val sortedRandomList = getTestDataArray()
         Log.d("TestDataArray", sortedRandomList.toString())
 
+        val numbers = listOf(3.5, 2.1, 4.8, 6.0, 7.3)
+
+        val sortedMedianList = averageLessThanMedian(numbers)
+        Log.d("TestDataArray", sortedMedianList.toString())
+
+
     }
 
 
@@ -34,15 +40,17 @@ class MainActivity : AppCompatActivity() {
 
 
     // Return true if average value in list is greater than median value, false otherwise
-    private fun averageLessThanMedian(listOfNumbers: List<Double>): Boolean {
-        val avg = listOfNumbers.average()
-        val sortedList = listOfNumbers.sorted()
-        val median = if (sortedList.size % 2 == 0)
-            (sortedList[sortedList.size / 2] + sortedList[(sortedList.size - 1) / 2]) / 2
-        else
-            sortedList[sortedList.size / 2]
 
-        return avg < median
+    private fun averageLessThanMedian(listOfNumbers: List<Double>): Boolean {
+        listOfNumbers.sorted().let { sortedList ->
+            val median = if (sortedList.size % 2 == 0){
+                (sortedList[sortedList.size / 2] + sortedList[(sortedList.size - 1) / 2]) / 2
+            } else {
+                sortedList[sortedList.size / 2]
+            }
+            return listOfNumbers.average() < median
+        }
+
     }
 
     // Create a view from an item in a collection, but recycle if possible (similar to an AdapterView's adapter)
